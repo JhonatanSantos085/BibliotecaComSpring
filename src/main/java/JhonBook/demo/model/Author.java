@@ -22,7 +22,7 @@ public class Author {
     private String description;
 
     @Column(name = "Livros")
-    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Book> bookList;
 
 
