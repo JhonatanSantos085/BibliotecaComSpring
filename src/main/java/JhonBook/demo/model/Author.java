@@ -4,6 +4,7 @@ package JhonBook.demo.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,15 +16,15 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "nome")
+
     private String name;
 
-    @Column(name = "descricao")
+
     private String description;
 
-    @Column(name = "Livros")
+
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Book> bookList;
+    private List<Book> books = new ArrayList<>();
 
 
 

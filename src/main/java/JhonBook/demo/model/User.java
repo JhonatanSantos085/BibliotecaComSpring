@@ -1,5 +1,6 @@
 package JhonBook.demo.model;
 
+import JhonBook.demo.enums.UserType;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -8,15 +9,15 @@ import lombok.Data;
 @Data
 public class User {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome")
     private String name;
-
-    @Column(name = "email")
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    private UserType type;
 
 }

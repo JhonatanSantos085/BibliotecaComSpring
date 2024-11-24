@@ -7,10 +7,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public User createUser(User user){
-        return userRepository.save(user);
+    // Construtor para injeção de dependência
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
+    public User createUser(User user) {
+        // Salvar o usuário no banco
+        return userRepository.save(user);
+    }
 }

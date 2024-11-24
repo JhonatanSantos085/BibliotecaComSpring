@@ -1,6 +1,5 @@
 package JhonBook.demo.controller;
 
-
 import JhonBook.demo.model.Book;
 import JhonBook.demo.service.BookService;
 import org.springframework.http.HttpStatus;
@@ -13,12 +12,23 @@ import java.util.List;
 @RequestMapping("/books")
 public class BookController {
 
-    private BookService bookService;
+    private final BookService bookService;
 
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
+    // Método POST para criar um livro
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody Book book){
-        var newBook = bookService.createBook(book);
-        return new ResponseEntity<>(newBook, HttpStatus.CREATED);
+    public ResponseEntity<Book> createBook(@RequestParam Long authorId, @RequestBody Book book) {
+        Book createdBook = bookService.createBook(authorId, book);
+        return new ResponseEntity<>(createdBook, HttpStatus.CREATED);
+    }
+
+    // Método GET para listar todos os livros
+    @GetMapping
+    public ResponseEntity<List<Book>> getAllBooks() {
+        List<Book> books = bookService.getAllBooks();
+        return ResponseEntity.ok(books);
     }
 }

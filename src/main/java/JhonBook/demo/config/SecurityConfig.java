@@ -13,13 +13,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Desabilita o CSRF (recomendado apenas para desenvolvimento)
+                .csrf(csrf -> csrf.disable()) // Desabilita CSRF
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**").permitAll() // Permite acesso ao console do H2
-                        .anyRequest().authenticated() // Exige autenticação para outras requisições
+                        .requestMatchers("/h2-console/**").permitAll() // Libera H2 Console
+                        .requestMatchers("/users/**").permitAll()      // Permite acesso ao endpoint de usuários
+                        .requestMatchers("/authors/**").permitAll()    // Permite acesso ao endpoint de autores
+                        .requestMatchers("/books/**").permitAll()
+                        .anyRequest().authenticated()                 // Exige autenticação para o restante
                 )
                 .headers(headers -> headers
-                        .frameOptions(frameOptions -> frameOptions.disable()) // Substitui o método obsoleto
+                        .frameOptions(frameOptions -> frameOptions.sameOrigin()) // Necessário para H2 Console
                 );
 
         return http.build();

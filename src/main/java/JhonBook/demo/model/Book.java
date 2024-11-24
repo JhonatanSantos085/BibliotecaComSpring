@@ -14,17 +14,17 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "titulo")
+
     private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "autor_id", nullable = false)
+    @ManyToOne(optional = false) // Define que o Author é obrigatório
+    @JoinColumn(name = "author_id", nullable = false)
     private Author author;
 
-    @Column(name = "descricao")
     private String description;
 
-    @Column(name = "tipo")
-    private BookType bookType;
+
+    @Enumerated(EnumType.STRING)
+    private BookType type;
 
 }
